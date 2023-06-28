@@ -1,5 +1,8 @@
 from app import app
 from models import db, Plant, Garden, Gardener
+from helpers import (
+    add_gardener
+)
 
 if __name__ == "__main__":
     with app.app_context():
@@ -16,6 +19,18 @@ if __name__ == "__main__":
 '--'      '--'/_______.' '--'      '--'           `'-...-'   '.(_,_).' ''-'   `'-'  '-----'`       `'-..-'  '--'    '--' 
                                                                                                                         
             """)
-        print("Hello! Welcome to the MBM Garden CLI.")
-        
+        print("Hello, gardener! Welcome to the MBM Garden CLI.")
+        plants = db.session.query(Plant)
+        gardeners = db.session.query(Gardener)
+        gardens = db.session.query(Garden)
 
+        gardener_name = input("Name: ")
+        for gardener in gardeners:
+            if gardener.name.lower() == gardener_name.lower():
+                print(f"Welcome back, {gardener.name}.")
+                break
+            else:
+                add_gardener(gardener_name)
+
+        
+        

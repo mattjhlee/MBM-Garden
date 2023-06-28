@@ -13,6 +13,7 @@ class Plant(db.Model):
     species = db.Column(db.String)
     season = db.Column(db.String)
     harvest_time = db.Column(db.Integer)
+    # quantity = db.Column(db.Integer)
     #harvest_time is in weeks
 
     gardeners_of_plants = db.relationship('Garden', backref = 'plants')
