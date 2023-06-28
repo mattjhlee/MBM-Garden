@@ -9,8 +9,11 @@ if __name__ == '__main__':
 
         #Clear out models
         Plant.query.delete()
+        Gardener.query.delete()
+        Garden.query.delete()
 
-        plants = [Plant(
+        plants = [
+        Plant(
             name = "tomato",
             species = "Solanum lycopersicum",
             season = "Spring",
@@ -44,6 +47,82 @@ if __name__ == '__main__':
         # print(plants) #some reason there is no closing >
 
         db.session.add_all(plants)
+
+        gardeners = [
+        Gardener(
+            name = "Emily Johnson",
+            location = "Seattle, WA",
+            experience = 3
+        ),
+
+        Gardener (
+            name = "Michael Thompson",
+            location = "Austin, TX",
+            experience = 2
+        ),
+
+        Gardener (
+            name = "Luisa Rodriguez",
+            location = "Chicago, IL",
+            experience = 1
+        ),
+
+        Gardener (
+            name = "Sophie Clark",
+            location = "San Francisco, CA",
+            experience = 4
+        ),
+
+        Gardener (
+            name = "Juan Hernandez",
+            location = "Miami, FL",
+            experience = 0
+        )]
+
+        db.session.add_all(gardeners)
+
+        gardens = [
+        Garden(
+            name = "Sunshine Paradise",
+            location = "Seattle, WA",
+            experience_req = 3,
+            plant_id = 1,
+            gardener_id = 1
+        ),
+
+            Garden (
+            name = "Breezy Meadows",
+            location = "Austin, TX",
+            experience_req = 2,
+            plant_id = 2,
+            gardener_id = 2
+        ),
+
+            Garden (
+            name = "City Retreat",
+            location = "Chicago, IL",
+            experience_req = 1,
+            plant_id = 3,
+            gardener_id = 3
+        ),
+
+            Garden (
+            name = "Serene Haven",
+            location = "San Francisco, CA",
+            experience_req = 4,
+            plant_id = 4,
+            gardener_id = 4
+        ),
+
+            Garden (
+            name = "Tropical Oasis",
+            location = "Miami, FL",
+            experience_req = 0,
+            plant_id = 5,
+            gardener_id = 5
+        )]
+        
+        db.session.add_all(gardens)
 
         db.session.commit()
         
