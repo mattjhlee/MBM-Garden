@@ -5,7 +5,7 @@ from models import db
 
 app = Flask(__name__)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ontrack.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///garden.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 app.json.compact = False
