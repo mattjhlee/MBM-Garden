@@ -12,4 +12,10 @@ def add_gardener(gardener_name):
 
     db.session.add(new_gardener)
     db.session.commit()
-    print(f"Welcome to MBM Gardens, {name}. You've been added to our list of gardeners.")
+    print(f"Welcome to MBM Gardens, {gardener_name}. You've been added to our list of gardeners.")
+
+def view_gardens(gardens):
+    print("-" * 50)
+    print(
+        f'| {"ID":<3} | {"Name":<45} | {"Location":<12} | {"Experience LVL":<20} | {"":<15} | {"Contact":<17} |'
+    )
