@@ -33,3 +33,36 @@ def view_gardens(gardens, plants, gardeners):
             f'| {garden.id}{" " * id_spaces} | {garden.name}{" " * name_spaces} | {garden.location}{" " * location_spaces} | {garden.experience_req}{" " * experience_spaces} | {plant_name}{" " * plant_spaces} | {gardener_name}{" " * gardener_spaces} |'
         )
     print("-" * 112)
+
+def plant_existing_garden():
+
+    print("Would you like to grow a new plant?")
+    choice = input("Type 'Yes' or 'No'")
+
+    if choice.lower() == 'Yes'.lower():
+        # db.session.add(gardener)
+        print("Great!")
+        print("What type of plant do you want to grow?")
+        new_plant_name = input("What type of plant do you want to grow? ")
+        # new_plant_species = input("What species is the plant? If you don't know type 'N/A")
+        # new_plant_season = input("What season does this plant bloom/flower?")
+        new_plant_quantity = input("Using numbers, how many plants will you be planting?")
+        new_plant_gardener = Gardener.name
+        new_plant_garden = Garden.name
+
+
+        new_plant = Plant(
+            name = new_plant_name,
+            quantity = new_plant_quantity,
+            gardener = new_plant_gardener,
+            garden = new_plant_garden
+        )
+
+        db.session.add(new_plant)
+        db.session.commit()
+    elif choice.lower() == 'No'.lower():
+        print("Alright, no problem!")
+    else:
+        print("Must type 'Yes' or 'No'")
+    
+        
