@@ -14,34 +14,39 @@ if __name__ == '__main__':
 
         plants = [
         Plant(
-            name = "tomato",
+            name = "Tomatoes",
             species = "Solanum lycopersicum",
             season = "Spring",
-            harvest_time = 10
+            harvest_time = 10,
+            quantity = 12
         ),
         Plant (
             name = "Bush Beans",
             species = "Phaseolus vulgaris",
             season = "Summer",
-            harvest_time = 6
+            harvest_time = 6,
+            quantity = 14
         ),
         Plant (
-            name = "Watermelon",
+            name = "Watermelons",
             species = "Citrullus lanatus",
             season = "Summer",
-            harvest_time = 11
+            harvest_time = 11,
+            quantity = 15
         ),
         Plant (
-            name = "Pumpkin",
+            name = "Pumpkins",
             species = "Cucurbita pepo",
             season = "Fall",
-            harvest_time = 15
+            harvest_time = 15,
+            quantity = 10
         ),
         Plant(
             name = "Strawberries",
             species = "Fragaria ananassa",
             season = "Spring",
-            harvest_time = 5
+            harvest_time = 5,
+            quantity = 6 
         )]
 
         # print(plants) #some reason there is no closing >

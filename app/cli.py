@@ -26,13 +26,14 @@ if __name__ == "__main__":
         gardens = db.session.query(Garden)
 
         gardener_name = input("Name: ")
+        name_check = False
         for gardener in gardeners:
             if gardener.name.lower() == gardener_name.lower():
                 print(f"Welcome back, {gardener.name}.")
-                break
-            else:
-                add_gardener(gardener_name)
+                name_check = True
+        if name_check == False:
+            add_gardener(gardener_name)
 
         print("Here is a list of our current gardens:")
-        view_gardens(gardens)    
+        view_gardens(gardens, plants, gardeners)    
         

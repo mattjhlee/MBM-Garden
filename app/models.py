@@ -13,10 +13,14 @@ class Plant(db.Model):
     species = db.Column(db.String)
     season = db.Column(db.String)
     harvest_time = db.Column(db.Integer)
-    # quantity = db.Column(db.Integer)
+    quantity = db.Column(db.Integer)
     #harvest_time is in weeks
 
-    gardeners_of_plants = db.relationship('Garden', backref = 'plants')
+    gardeners = db.relationship('Gardener', secondary="gardens", back_populates="plants")
+
+    gardens = db.relationship(
+        "Garden", back_populates="plant", overlaps="plants,gardeners"
+    )
 
     def __repr__(self):
         return f"<Plant {self.name}"
@@ -29,7 +33,11 @@ class Gardener(db.Model):
     location = db.Column(db.String)
     experience = db.Column(db.Integer)
 
-    plants_of_gardener = db.relationship('Garden', backref = 'gardeners')
+    plants = db.relationship('Plant', secondary="gardens", back_populates="gardeners")
+
+    gardens = db.relationship(
+        "Garden", back_populates="gardener", overlaps="plants,gardeners"
+    )
 
     def __repr__(self):
         return f"<Gardener {self.name}"
@@ -44,6 +52,14 @@ class Garden(db.Model):
 
     plant_id = db.Column(db.Integer, db.ForeignKey('plants.id'))
     gardener_id = db.Column(db.Integer, db.ForeignKey('gardeners.id'))
+
+    plant = db.relationship(
+        "Plant", back_populates="gardens", overlaps="plants,gardeners"
+    )
+
+    gardener = db.relationship(
+        "Gardener", back_populates="gardens", overlaps="plants,gardeners"
+    )
 
     def __repr__(self):
         return f"<Garden {self.name}"
