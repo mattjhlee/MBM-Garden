@@ -9,10 +9,10 @@ Matts Ideas:
 
 -if existing gardener logs in, show menu:
     -show all gardens
+        -visit another garden
+        -if they have the xp required, become a gardener in that garden and plant
     -show their garden/s
         -plant in their garden
-    -visit another garden
-        -if they have the xp required, become a gardener in that garden and plant
 -if new gardener, show menu:
     -if in existing city
         -show garden/s in their city
@@ -23,4 +23,14 @@ Matts Ideas:
         -create a new garden
             -plant a plant they have xp required for in their garden
             -plant a new plant
-    
+
+-when visiting a garden, print message that includes garden name and what is planted
+
+
+-mako
+    -menu stuff
+    -adding new garden helper
+-bryant
+    -plant a new plant in new garden helper
+    -plant plant in existing garden (adds gardener to garden)
+        -they need the xp required
