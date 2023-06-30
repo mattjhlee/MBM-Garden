@@ -10,7 +10,7 @@ def existing_selection( gardener_name, gardens, plants, gardeners): #gardener_na
                 elif choice.lower() == "plants":
                      view_plants(plants)
                 elif choice.lower() == "create":
-                     add_garden(gardener_name, plants, gardeners) #write a method to create a garden
+                     add_garden(gardener_name, plants, gardeners, gardens) #write a method to create a garden
                 elif choice.lower() == "exit":
                     exit_loop = True #write an exit
                 else:
@@ -100,7 +100,7 @@ def view_plants(plants):
 
 
 
-def add_garden(gardener_name, plants, gardeners):
+def add_garden(gardener_name, plants, gardeners, gardens):
     garden_input = input("What would you like to call your garden? ")
     location_input = input("City, State: ")
 
@@ -157,9 +157,36 @@ def add_garden(gardener_name, plants, gardeners):
 
     db.session.add(new_garden)
     db.session.commit()
-    print(f"Congratulations! You've successfully created a community garden, would you like to go to {new_garden.name}? Type Y to continue to your garden and plant, or m to go back to the main menu.")
 
-    #an input to bring you back to the main menu, something to take you to the created garden. A success message
+    YES = ['y','ye','yes']
+    NO = ['n', 'no']
+    if new_garden:
+        after_create_choice = input(f"Congratulations! You've successfully created a community garden, would you like to go to {new_garden.name}? Type 'Y' to continue to your garden and plant, or 'M' to go back to the main menu.")
+        if after_create_choice.lower() == 'm':
+            existing_selection(gardener_name, gardens, plants, gardeners)
+        elif after_create_choice.lower() == 'y':
+            print(f"Welcome to {new_garden.name}, a {new_garden.plant.name} garden, located in {new_garden.location}. ")
+            wtp = input(f"Would you like to plant more {new_garden.plant.name}? Y/N: ")
+            if wtp.lower() in YES:
+                plant_loop = False
+                while plant_loop == False:
+                        p_id = new_garden.plant_id
+                        quantity_to_plant = input(f"How many {new_garden.plant.name} would you like to plant? ")
+                        quantity_to_plant = int(quantity_to_plant)
+                        if isinstance(quantity_to_plant, int) and 0 < quantity_to_plant <= 10:
+                            plant.quantity += quantity_to_plant
+                            print(f"Succesfully planted {quantity_to_plant} {new_garden.plant.name}." )
+                            plant_loop = True
+                        elif quantity_to_plant > 10:
+                            print(f"Not enough time to plant that many {new_garden.plant.name}. Try a smaller amount. ") 
+                        else:
+                            error_message()
+            elif wtp.lower() in NO:
+                print("WHY DID YOU COME THEN SPARTICUS?")
+                pass
+            else:
+                error_message()
+        #an input to bring you back to the main menu, something to take you to the created garden. A success message
 
 def error_message():
         print("The input you've made is invalid, please try again.")
