@@ -34,35 +34,76 @@ def view_gardens(gardens, plants, gardeners):
         )
     print("-" * 112)
 
-def plant_existing_garden():
+# def plant_existing_garden(gardner_name): #Should gardner_name be an argument
+#     print("Would you like to grow a new plant?")
+#     choice = input("Type 'Yes' or 'No'") #This goes in the CLI and choice will become an attribute
 
+#     if choice.lower() == 'Yes'.lower():
+#         # db.session.add(gardener) This was commented out prior
+#         print("Great!")
+#         new_plant_name = input("What type of plant do you want to grow? ")
+#         # new_plant_species = input("What species is the plant? If you don't know type 'N/A")
+#         # new_plant_season = input("What season does this plant bloom/flower?")
+#         new_plant_quantity = input("Using numbers, how many plants will you be planting? ")
+#         new_plant_gardener = [gardner_name] 
+#         new_plant_garden = None
+        
+
+
+#         new_plant = Plant(
+#             name = new_plant_name,
+#             quantity = new_plant_quantity,
+#             gardeners = new_plant_gardener,
+#             garden = new_plant_garden
+#         )
+
+#         print(new_plant)
+
+        
+#         db.session.add(new_plant)
+#         db.session.commit()
+#         print("success!")
+#     elif choice.lower() == 'No'.lower():
+#         print("Alright, no problem!")
+#     else:
+#         print("Must type 'Yes' or 'No'")
+
+def plant_existing_garden(gardener_name):
     print("Would you like to grow a new plant?")
-    choice = input("Type 'Yes' or 'No'")
+    choice = input("Type 'Yes' or 'No': ")
 
-    if choice.lower() == 'Yes'.lower():
-        # db.session.add(gardener)
+    if choice.lower() == 'yes':
         print("Great!")
-        print("What type of plant do you want to grow?")
         new_plant_name = input("What type of plant do you want to grow? ")
-        # new_plant_species = input("What species is the plant? If you don't know type 'N/A")
-        # new_plant_season = input("What season does this plant bloom/flower?")
-        new_plant_quantity = input("Using numbers, how many plants will you be planting?")
-        new_plant_gardener = Gardener.name
-        new_plant_garden = Garden.name
+        new_plant_quantity = input("Using numbers, how many plants will you be planting? ")
 
+        gardener = Gardener.query.filter_by(name=gardener_name).first()  # Fetch the gardener object from the database
 
-        new_plant = Plant(
-            name = new_plant_name,
-            quantity = new_plant_quantity,
-            gardener = new_plant_gardener,
-            garden = new_plant_garden
-        )
+        if gardener:
+            new_plant_gardener = [gardener]
+            garden_name = input("In which garden do you want to plant? ")
+            garden = Garden.query.filter_by(name=garden_name).first()  # Fetch the garden object from the database
 
-        db.session.add(new_plant)
-        db.session.commit()
-    elif choice.lower() == 'No'.lower():
+            if garden:
+                new_plant = Plant(
+                    name=new_plant_name,
+                    quantity=new_plant_quantity,
+                    gardeners=new_plant_gardener,
+                    gardens=[garden]
+                )
+
+                db.session.add(new_plant)
+                db.session.commit()
+                print("Success!")
+            else:
+                print(f"No garden found with the name: {garden_name}")
+        else:
+            print(f"No gardener found with the name: {gardener_name}")
+    elif choice.lower() == 'no':
         print("Alright, no problem!")
     else:
-        print("Must type 'Yes' or 'No'")
+        print("Please type 'Yes' or 'No'")
+
+
     
         

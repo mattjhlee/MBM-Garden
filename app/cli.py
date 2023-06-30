@@ -2,7 +2,8 @@ from app import app
 from models import db, Plant, Garden, Gardener
 from helpers import (
     add_gardener,
-    view_gardens
+    view_gardens,
+    plant_existing_garden
 )
 
 if __name__ == "__main__":
@@ -36,4 +37,5 @@ if __name__ == "__main__":
 
         print("Here is a list of our current gardens:")
         view_gardens(gardens, plants, gardeners)    
+        plant_existing_garden(gardener_name)
         
