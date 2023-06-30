@@ -4,7 +4,7 @@ from helpers import (
     add_gardener,
     view_gardens,
     view_plants,
-    menu_selection
+    existing_selection
 )
 
 if __name__ == "__main__":
@@ -28,18 +28,23 @@ if __name__ == "__main__":
         gardens = db.session.query(Garden)
 
         # view_plants(plants)
-        menu_selection(gardens, plants, gardeners)
+        # menu_selection(gardens, plants, gardeners)
 
-        # gardener_name = input("Name: ")
-        # name_check = False
-        # for gardener in gardeners:
-        #     if gardener.name.lower() == gardener_name.lower():
-        #         print(f"Welcome back, {gardener.name}.")
-        #         name_check = True
-        # if name_check == False:
-        #     add_gardener(gardener_name)
+        gardener_name = input("Name: ")
+        name_check = False
+        for gardener in gardeners:
+            if gardener.name.lower() == gardener_name.lower():
+                print(f"Welcome back, {gardener.name}.")
+                existing_selection(gardens, plants, gardeners)
+                name_check = True
+        if name_check == False:
+            add_gardener(gardener_name, gardens, plants, gardeners)
+            existing_selection(gardens, plants, gardeners)
+        # gardener_name.location == garden.location
+
+        
+#this garden is nearby, would you like to join?
+        
 
         # print("Here is a list of our current gardens:")
-        # view_gardens(gardens, plants, gardeners)    
-        
-        
+        # view_gardens(gardens, plants, gardeners)

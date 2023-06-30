@@ -1,22 +1,26 @@
 from models import db, Plant, Garden, Gardener
 
-def menu_selection( gardens, plants, gardeners): #gardener_name missing as first positonal
+def existing_selection( gardens, plants, gardeners): #gardener_name missing as first positonal
       exit_loop = False
       while exit_loop == False:
-                choice = input("Type 'gardens' to see the gardens, type 'plants' to see our available plants, not already a gardener? Type 'join', or type 'exit' to end session: ")
+                choice = input("What would you like to do: \n-Type 'all' to see all gardens \n-Type 'plants' to see your available plants \n-Type'exit' to end session \n ")
                 print(' ')
-                if choice.lower() == "gardens":
+                if choice.lower() == "all":
                      view_gardens(gardens, plants, gardeners)
                 elif choice.lower() == "plants":
                      view_plants(plants)
-                elif choice.lower() == "join":
-                     add_gardener(gardener_name)
+                elif choice.lower() == "visit":
+                     pass #write a visit method
+                elif choice.lower() == "create":
+                     pass #write a method to create a garden
                 elif choice.lower() == "exit":
                     exit_loop = True #write an exit
                 else:
                     error_message()
 
-def add_gardener(gardener_name):
+
+def add_gardener(gardener_name, gardens, plants, gardeners):
+    print("Please join to view our list of gardens and plants available to you.  ")
     location_input = input("City, State: ")
     exp_input = input("Years of experience: ")
 
@@ -49,6 +53,7 @@ def view_gardens(gardens, plants, gardeners):
             f'| {garden.id}{" " * id_spaces} | {garden.name}{" " * name_spaces} | {garden.location}{" " * location_spaces} | {garden.experience_req}{" " * experience_spaces} | {plant_name}{" " * plant_spaces} | {gardener_name}{" " * gardener_spaces} |'
         )
     print("-" * 112)
+
 
 def view_plants(plants):
     print("-" * 100)
@@ -88,6 +93,7 @@ def add_garden():
         name = garden_input,
         location = location_input,
         experience = exp_input
+        # gardener = 
     )
 
     db.session.add(new_garden)
@@ -104,3 +110,11 @@ def error_message():
 
     # plant_id = db.Column(db.Integer, db.ForeignKey('plants.id'))
     # gardener_id = db.Column(db.Integer, db.ForeignKey('gardeners.id'))
+
+
+    #create takes to helper that is associated to their garden ID and then in there they can plant a new plant
+    #or plant a plant that's already in our plant list, exp req = plant
+    #visiting, how many bush beans would you like to plant = type number NO isinstance(variable_plant, int) and variable is 0<variable_plant<10 = error
+    #if NUMBER > 10 you do not have time to plant that many plants
+
+    #VISIT, make a garden, 
