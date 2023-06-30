@@ -1,18 +1,16 @@
 from models import db, Plant, Garden, Gardener
 
-def existing_selection( gardens, plants, gardeners): #gardener_name missing as first positonal
+def existing_selection( gardener_name, gardens, plants, gardeners): #gardener_name missing as first positonal
       exit_loop = False
       while exit_loop == False:
-                choice = input("What would you like to do: \n-Type 'all' to see all gardens \n-Type 'plants' to see your available plants \n-Type'exit' to end session \n ")
+                choice = input("What would you like to do: \n-Type 'all' to see all gardens \n-Type 'plants' to see your available plants \n-Type 'create' to create a garden! \n-Type 'exit' to end session  \n")
                 print(' ')
                 if choice.lower() == "all":
                      view_gardens(gardens, plants, gardeners)
                 elif choice.lower() == "plants":
                      view_plants(plants)
-                elif choice.lower() == "visit":
-                     pass #write a visit method
                 elif choice.lower() == "create":
-                     pass #write a method to create a garden
+                     add_garden(gardener_name, plants, gardeners) #write a method to create a garden
                 elif choice.lower() == "exit":
                     exit_loop = True #write an exit
                 else:
@@ -54,6 +52,24 @@ def view_gardens(gardens, plants, gardeners):
         )
     print("-" * 112)
 
+    selected_id = input("What garden would you like to visit? Please select the corresponding ID: ")
+    YES = ['y','ye','yes']
+    NO = ['n', 'no']
+    for garden in gardens:
+        if str(garden.id) == selected_id:
+             print(f"Welcome to {garden.name}, a {garden.plant.name} garden, located in {garden.location}. ")
+             wtp = input(f"Would you like to plant some {garden.plant.name}? Y/N: ")
+             if wtp.lower() in YES:
+                  print("Yes statement")
+                  pass #put in Bryants method
+             elif wtp.lower() in NO:
+                  print("No statement")
+                  pass
+             else:
+                  error_message()
+
+                  
+            #  if isinstance(wtp, int) and 0<int
 
 def view_plants(plants):
     print("-" * 100)
@@ -84,32 +100,73 @@ def view_plants(plants):
 
 
 
-def add_garden():
-    garden_input = input("What would you like to call your garden?")
+def add_garden(gardener_name, plants, gardeners):
+    garden_input = input("What would you like to call your garden? ")
     location_input = input("City, State: ")
-    exp_input = input("Years of experience: ")
+
+    g_id= None
+    p_id = None
+    garden_exp = None
+    
+    print(f"Here's a list of the plants currently available to be planted: ")
+    view_plants(plants)
+
+    print("From the above, select a plant, or introduce a new plant: ") 
+    #Bryants new plant creation needed
+    plant_input = input("What would you like to plant? Please select the corresponding plant ID: \nType 'new' to plant a new plant: \n") 
+    if plant_input == "new":
+         pass #need Bryants new plant when typing new
+    elif plant_input:
+        for plant in plants:
+            if str(plant.id) == plant_input:
+                plant_loop = False
+                while plant_loop == False:
+                    p_id = plant.id
+                    quantity_to_plant = input(f"How many {plant.name} would you like to plant? ")
+                    quantity_to_plant = int(quantity_to_plant)
+                    if isinstance(quantity_to_plant, int) and 0 < quantity_to_plant <= 10:
+                        plant.quantity += quantity_to_plant
+                        print(f"Succesfully planted {quantity_to_plant} {plant.name}." )
+                        plant_loop = True
+                        print(plant_loop)
+                        # break
+                    elif quantity_to_plant > 10:
+                        print(f"Not enough time to plant that many {plant.name}. Try a smaller amount. ") 
+                    else:
+                        error_message()
+                     
+    else:
+         error_message()
+    
+
+    
+    for gardener in gardeners:
+        if gardener.name == gardener_name:
+            g_id = gardener.id
+            garden_exp = gardener.experience
+    
+
 
     new_garden = Garden(
         name = garden_input,
         location = location_input,
-        experience = exp_input
-        # gardener = 
+        experience_req = garden_exp,
+        gardener_id = g_id,
+        plant_id = p_id
     )
 
     db.session.add(new_garden)
     db.session.commit()
-    print(f"Congratulations! You've successfully created community garden, would you like to get planting in {new_garden.name}? Type Y to continue to your garden and plant, or L to see the list of gardens!")
+    print(f"Congratulations! You've successfully created a community garden, would you like to go to {new_garden.name}? Type Y to continue to your garden and plant, or m to go back to the main menu.")
+
+    #an input to bring you back to the main menu, something to take you to the created garden. A success message
 
 def error_message():
         print("The input you've made is invalid, please try again.")
 
-    # id = db.Column(db.Integer, primary_key=True)
-    # name = db.Column(db.String)
-    # location = db.Column(db.String)
-    # experience_req = db.Column(db.Integer)
-
-    # plant_id = db.Column(db.Integer, db.ForeignKey('plants.id'))
-    # gardener_id = db.Column(db.Integer, db.ForeignKey('gardeners.id'))
+def visit_garden(gardens):
+     pass
+     
 
 
     #create takes to helper that is associated to their garden ID and then in there they can plant a new plant
