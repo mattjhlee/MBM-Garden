@@ -60,8 +60,21 @@ def view_gardens(gardens, plants, gardeners):
              print(f"Welcome to {garden.name}, a {garden.plant.name} garden, located in {garden.location}. ")
              wtp = input(f"Would you like to plant some {garden.plant.name}? Y/N: ")
              if wtp.lower() in YES:
-                  print("Yes statement")
-                  pass #put in Bryants method
+                for plant in plants:
+                    if plant.id == garden.plant_id:
+                        plant_loop = False
+                        while plant_loop == False:
+                            quantity_to_plant = input(f"How many {plant.name} would you like to plant? ")
+                            quantity_to_plant = int(quantity_to_plant)
+                            if isinstance(quantity_to_plant, int) and 0 < quantity_to_plant <= 10:
+                                plant.quantity += quantity_to_plant
+                                print(f"Succesfully planted {quantity_to_plant} {plant.name}." )
+                                plant_loop = True
+                                # break
+                            elif quantity_to_plant > 10:
+                                print(f"Not enough time to plant that many {plant.name}. Try a smaller amount. ") 
+                            else:
+                                error_message()
              elif wtp.lower() in NO:
                   print("No statement")
                   pass
