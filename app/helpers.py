@@ -76,8 +76,7 @@ def view_gardens(gardens, plants, gardeners):
                             else:
                                 error_message()
              elif wtp.lower() in NO:
-                  print("No statement")
-                  pass
+                  print(f"Thank you for visiting {garden.name}!")
              else:
                   error_message()
 
@@ -128,7 +127,21 @@ def add_garden(gardener_name, plants, gardeners, gardens):
     #Bryants new plant creation needed
     plant_input = input("What would you like to plant? Please select the corresponding plant ID: \nType 'new' to plant a new plant: \n") 
     if plant_input == "new":
-         pass #need Bryants new plant when typing new
+        new_plant_name = input("What type of plant do you want to grow? ")
+        new_plant_species = input(f"What is the species of {new_plant_name}? ")
+        new_plant_season = input(f"What season is {new_plant_name} planted in? ")
+        new_plant_harvest_time = input(f"What is the harvest time (in weeks) of {new_plant_name}? ")
+        new_plant_quantity = input(f"Using numbers, how many {new_plant_name} will you be planting? ")
+        new_plant = Plant(
+                    name = new_plant_name,
+                    species = new_plant_species,
+                    season = new_plant_season,
+                    harvest_time = new_plant_harvest_time,
+                    quantity = new_plant_quantity
+                )
+        db.session.add(new_plant)
+        db.session.commit()
+        print("You've successfully introduced a new plant to MBM Gardens.")
     elif plant_input:
         for plant in plants:
             if str(plant.id) == plant_input:
