@@ -34,3 +34,9 @@ Matts Ideas:
     -plant a new plant in new garden helper
     -plant plant in existing garden (adds gardener to garden)
         -they need the xp required
+
+
+#an input to bring you back to the main menu, something to take you to the created garden. A success message
+#would you like to try to plant a smaller amount?
+
+years of experience cap?
